@@ -1,110 +1,125 @@
 # ⚡ Q-Validate: Rigorous Identity-Disjoint Benchmarking of ZZ-Entangled Quantum Kernels
 
 <p align="center">
-  <img src="benchmark_results/figures/enhanced_hyperparameter_heatmap.png" alt="Quantum Kernel Hyperparameter Heatmap" width="800/">
+  <img src="figures/synthetic_pipeline_demo_1.png" alt="Quantum Kernel Hyperparameter Heatmap" width="800/">
+</p>
+
+<p align="center">
+  <em>An enterprise-grade, publication-ready research framework engineering robust evaluations of ZZ-entangled quantum-kernel SVMs against classical RBF baselines with absolute data-leakage immunity.</em>
 </p>
 
 ---
 
 ## 🚀 Executive Summary & Architecture Overview
-Welcome to **Q-Validate**, an enterprise-grade, publication-ready research pipeline designed to benchmark **ZZ-entangled quantum-kernel Support Vector Machines (SVMs)** against classical Radial Basis Function (RBF) baselines. 
 
-Built upon rigorous validation principles, this framework addresses critical challenges in applied quantum machine learning (QML) by eliminating data leakage, incorporating robust geometric diagnostics, and enforcing strict anti-overclaiming protocols.
+Welcome to **Q-Validate**, a state-of-the-art research framework engineered to conquer fundamental evaluation bottlenecks in Applied Quantum Machine Learning (QML). Traditional deepfake detection and biometric identification pipelines frequently succumb to severe cross-validation vulnerabilities—specifically data leakage via random splits where frames belonging to the exact same subject bleed across training and testing partitions. 
 
-[ Input Data Partition ] ──► [ Identity-Disjoint Split ] ──► [ ZZ Feature Map / Qubits ]
+This repository enforces strict **identity-disjoint data splitting**, integrates advanced geometric diagnostics including **Kernel Target Alignment (KTA)** and **Effective Rank**, and executes clean, reproducible comparative performance pipelines between classical Support Vector Machines and **ZZ-entangled quantum-kernel SVMs**.
+
+[ FaceForensics++ Raw Data ]
 │
-[ Automated Compliance ] ◄── [ Geometric Diagnostics ] ◄── [ Precomputed Kernel SVM ]
+▼
+[ src/extract_arcface_embeddings_colab.py ] ──► Extracts Embeddings & Metadata (identity_id)
+│
+▼
+[ src/run_faceforensics_quantum_benchmark.py ] ──► Identity-Disjoint Split & ZZ-Kernel Evaluation
+│
+▼
+[ src/benchmark_results_to_latex.py ] ──► Compiles Publication-Ready LaTeX Tables
 
 
 ---
 
-## 🛠️ System Architecture & Methodological Rigor
+## 📂 Repository Structure
 
-To ensure absolute academic integrity and peer-review readiness, the architecture implements three core pillars:
+The project is structured cleanly to isolate pre-flight simulation smoke tests from production datasets and core execution engines:
 
-* **Identity-Disjoint Validation Splits:** Guarantees absolute zero identity overlap across training, validation, and test partitions, preventing artificial inflation of out-of-distribution metrics.
-* **Separation of Screening and Selection:** Utilizes Kernel Target Alignment (KTA) strictly as a representation-screening diagnostic, while final model optimization relies on balanced accuracy, ROC-AUC, calibration, and computational overhead.
-* **Anti-Overclaiming Protocols:** Maintains strict reporting boundaries—explicitly recognizing that geometric metrics describe representation mapping rather than guaranteeing real-world authenticity or legal admissibility.
+```text
+quantum-kernel-svm-benchmark/
+├── notebooks/
+│   └── Q_Validate_Rigorous_Identity_Disjoint_Benchmarking_of_ZZ_Entangled_Quantum_Kernels.ipynb
+├── figures/
+│   ├── synthetic_pipeline_demo_1.png
+│   ├── synthetic_pipeline_demo_2.png
+│   └── README.md
+├── src/
+│   ├── extract_arcface_embeddings_colab.py
+│   ├── run_faceforensics_quantum_benchmark.py
+│   └── benchmark_results_to_latex.py
+├── results/
+│   └── README.md
+├── LICENSE
+└── README.md
+🛠️ Detailed Component Guide & Execution Workflow
+To replicate the empirical benchmarking suite or scale the architecture using real-world data files, execute the three core python scripts in sequence:
 
----
+1. Feature Extraction (src/extract_arcface_embeddings_colab.py)
+Processes raw video frames or image crops to extract high-dimensional facial feature tensors via ArcFace. It extracts and bundles necessary metadata tags—including identity_id, video_id, and manipulation class targets—to power subject-exclusive partitioning.
 
-## 📊 Performance Benchmarks & Results Summary
+Usage Example:
 
-Evaluated under strict identity-disjoint constraints, the architecture yields the following empirical performance metrics:
+Bash
+python src/extract_arcface_embeddings_colab.py --data_dir /path/to/faceforensics --output_dir results/
+2. Empirical Benchmarking (src/run_faceforensics_quantum_benchmark.py)
+The heavy-lifting execution core of the repository. It ingests stored embedding arrays, runs a strict subject-exclusive (identity-disjoint) split, constructs the parameterized ZZ-entangled quantum kernel matrix, fits the quantum-kernel SVM, and computes critical geometric diagnostics such as Kernel Target Alignment (KTA) and effective rank.
 
-| Architecture | Evaluation Split | Balanced Accuracy | ROC-AUC | Training KTA | Effective Rank |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Tuned RBF Baseline** | Identity-Disjoint | 0.7420 | 0.7810 | N/A | N/A |
-| **ZZ-Quantum-SVM** | Identity-Disjoint | **0.8150** | **0.8430** | **0.6520** | **12.40** |
+Usage Example:
 
----
+Bash
+python src/run_faceforensics_quantum_benchmark.py --input_embeddings results/embeddings.npz --qubits 8 --gamma 0.05
+3. LaTeX Table Generation (src/benchmark_results_to_latex.py)
+Automates paper drafting by parsing experimental metric JSON logs and compiling them into pristine, publication-ready LaTeX table code optimized for direct insertion into academic manuscripts.
 
-## 📈 Professional Visual Assets
-The automated pipeline generates publication-grade (300 DPI) visual assets stored under `benchmark_results/figures/`:
+Usage Example:
 
-1. **`enhanced_performance_comparison.png`**: Comprehensive side-by-side metric evaluations contrasting classical RBF vs. ZZ-entangled quantum kernels.
-2. **`enhanced_hyperparameter_heatmap.png`**: High-contrast validation heatmaps mapping qubit configurations against scaling factors ($\beta$).
+Bash
+python src/benchmark_results_to_latex.py --results_json results/metrics.json --output_tex results/performance_table.tex
+⚠️ Important Note on Artifacts & Synthetic Demos
+The visual assets saved inside the figures/ directory and the core notebook (Q_Validate_Rigorous_Identity_Disjoint_Benchmarking_of_ZZ_Entangled_Quantum_Kernels.ipynb) serve as synthetic pipeline smoke tests and presentation prototypes.
 
-<p align="center">
-  <img src="benchmark_results/figures/enhanced_performance_comparison.png" alt="Performance Comparison Bar Chart" width="800/">
-</p>
+They demonstrate the planned data schema validation, visualization grid layout, and metric export flow using simulated random features and hard-coded mathematical fallback routines.
 
----
+They do not represent lawful FaceForensics++ empirical results, nor do they substantiate claims of quantum advantage or production deepfake-authentication performance until re-executed with genuine dataset embeddings.
 
-## ⚙️ Quick Start & Installation
+Figure Caption Policy: Synthetic pre-flight visualization generated during pipeline validation; not a FaceForensics++ result.
 
-Clone the repository and execute the benchmarking pipeline inside your Python or Google Colab environment:
+⚙️ Quick Start & Environment Setup
+Get your environment configured in minutes:
 
-```bash
-# Clone the repository
+Bash
+# 1. Clone the repository
 git clone [https://github.com/saviochackoxavier-tech/Q-Validate-Quantum-Kernel-Benchmarker.git](https://github.com/saviochackoxavier-tech/Q-Validate-Quantum-Kernel-Benchmarker.git)
 cd Q-Validate-Quantum-Kernel-Benchmarker
 
-# Run the benchmark suite
-python run_quantum_benchmark.py
-Note: Ensure your dataset directory incorporates identity-based grouping to maintain integrity during k-fold cross-validation.
+# 2. Create and activate a Python virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
 
-🛡️ Scientific Disclaimer & Guardrails
-Overclaiming Prevention: Models assign scores associated with specific classes under tested distributions; they do not mathematically or legally "prove" authenticity, origin, or authorship.
+# 3. Install core dependencies
+pip install numpy scipy scikit-learn matplotlib jupyter pennylane
 
-Data Integrity: Hyperparameters are never tuned on the final held-out test partition.
+🙏 Acknowledgments & Professional Context
 
-🙏 Acknowledgments
+This framework draws direct inspiration from applied research initiatives
+in infrastructure security, quantum computing workshops,
+and deep learning engineering communities.
 
-A massive and heartfelt thank you to the organizers, engineers, and mentors at Qvertex,
-as well as the instructors of the Quantum Kernel SVM Workshop.
-The foundational concepts, brilliant insights, and hands-on guidance provided during the
-sessions served as the primary spark and inspiration behind this advanced project.
+A massive thank you to the organizers, engineers,
+and mentors at Qvertex, as well as the instructors
+of the Quantum Kernel SVM Workshop.
 
-Special recognition goes to ASAP Kerala, the Information Security Research Association (ISRA)
-and the TinkerHub Foundation community for organizing the meetups and skill initiatives
-that shaped our earlier milestones.
+Special recognition goes to collaborative technical meetups
+hosted by organizations like the Information Security Research Association (ISRA)
+and the TinkerHub Foundation, alongside skill development milestones
+via ASAP Kerala and hackathon platforms like Hack2skill
+and Redrob AI for continuous technical support,
+community feedback, and shaping our technical foundations.
 
-Gratitude is also extended to platforms like Hack2skill and Redrob AI for continuous technical-
-support, mentorship, and feedback that enabled this evolutionary leap in quantum-kernel research.
-
-📄 License
-This project is open-source and licensed under the terms of the MIT License. You can view the full license text below or check the LICENSE file in this repository.
-
-Plaintext
-MIT License
-
+📄 MIT License
 Copyright (c) 2026 Savio Chacko Xavier
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
